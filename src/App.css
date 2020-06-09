@@ -1,31 +1,42 @@
+@import "~normalize.css";
+@import "~@blueprintjs/core/lib/css/blueprint.css";
+@import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
+
 .App {
   text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 3vmin;
   pointer-events: none;
+}
+
+.App-axe {
+  height: 3vmin;
+  pointer-events: none;
+  padding-right: 5px;
+  fill: aqua;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 10s linear;
   }
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #E1E8ED;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #293742;
 }
 
 .App-link {
-  color: #61dafb;
+  color: white;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +46,45 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Custom styles */
+
+.bp3-button-group > .bp3-button > .bp3-button-text{
+  color: #5C7080;
+}
+
+.printCard{
+  width: 595px;
+  height: 842px;
+}
+
+/* print styles */
+@media print {
+
+  body {
+    margin: 0;
+    color: #000;
+    background-color: #fff;
+  }
+
+}
+
+/* custom font */
+@font-face{
+  font-family: Toporik;
+  src: url('Toporiki_mod.ttf');
+}
+
+.noteline{
+  font-family: Toporik;
+}
+
+.note_btn{  
+  font-family: Toporik;  
+}
+
+.note_btn > .bp3-button-text{
+  font-size: 30px;
+  color: #5C7080;
 }

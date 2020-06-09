@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   viewBox="-10 0 650 1000"
+   id="svg4"
+   sodipodi:docname="eta_Toporiki.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="996"
+     id="namedview6"
+     showgrid="false"
+     inkscape:zoom="0.236"
+     inkscape:cx="272.0339"
+     inkscape:cy="500"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     fill="currentColor"
+     d="M278 309q0 -25 14 -100q9 -46 9 -69q0 -12 -2 -23q-34 -17 -107 -17q-44 0 -81.5 6t-37.5 11v121h121q42 0 45 16q-19 73 -49 212q-20 91 -20 150q0 46 14 81q2 5 5 5q10 0 40 -20q34 -34 51 -34q2 0 3 1q-5 -16 -8 -34h247q-12 156 -12 236q0 87 24 87q0 2 6 2 q13 0 49 -10t36 -12v-721h-212q-16 17 -19 94q0 25 -1 50q-2 49 5.51562 52.1211q7.48438 2.87891 25.4844 2.87891q19 0 60 -3.5t52 -3.5q13 0 13 3q0 36 -17 102v0h-266q6 -92 12 -185zM284 652q0 -2 -1 -3z"
+     id="path2"
+     style="fill:#bfccd6;fill-opacity:1" />
+</svg>
