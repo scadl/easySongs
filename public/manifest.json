@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "простоТопорики",
+  "name": "простоТопорики - современный нотный редактор для нот альтового ключа",
   "icons": [
     {
       "src": "favicon.ico",
