@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -6,6 +7,87 @@ import {
   Button, Intent, ButtonGroup, AnchorButton, Navbar,
   Alignment, Card, Elevation, Position, Tooltip
 } from "@blueprintjs/core"
+
+class NoteChar extends React.Component{
+  constructor(props){
+    super(props);    
+    this.noteUpdate = this.noteUpdate.bind(this);
+    this.clickToChar = this.clickToChar.bind(this);
+    this.state = {
+      cNote: props.note
+    }
+  }
+  clickToChar(lY,mY){
+    return (lY[0] <= mY && lY[1] >= mY);
+  }
+  noteUpdate(evt){  
+    let clickY = evt.clientY - this.props.cy;
+    let safeChars = "[ё\\/".split("");
+    let noteHights = [
+      [40,34,"й"],
+      [35,29,"ц"],
+      [30,24,"у"],
+      [25,19,"к"],
+      [20,14,"е"],
+      [15,9,"н"],
+      [10,4,"г"],
+      [5,1,"ш"],
+      [0,-4,"щ"],
+      [-5,-9,"з"],
+      [-10,-14,"х"],
+      [-15,-20,"ъ"],
+    ]
+    this.setState(function(state){
+      if( safeChars.indexOf(this.state.cNote) === -1){        
+        let nCh = noteHights.find(element => {
+            if (clickY < element[0] && clickY > element[1]){
+                return true;
+            }
+        });
+        console.log(nCh);
+        if(nCh===undefined){
+          return {cNote: "="}
+        } else {
+          return {cNote: nCh[2]}
+        }
+      }
+    })
+    console.log(" cY:"+this.props.cy +  " eCy:" + evt.clientY + " rY:"+clickY);
+  }
+  render(){
+    return(
+      <span onClick={this.noteUpdate}>
+      {this.state.cNote}
+      </span>
+    );
+  }
+}
+
+class NoteLine extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      cx: 0,
+      cy: 0
+    }
+  }
+  componentDidMount(){
+        this.setState({
+          cy: this.containerLine.offsetTop
+        });        
+  }
+  render(){
+    let myLine = "ё=======================================================\\/";
+    let resLine = myLine.split("").map((char, key) => 
+      <NoteChar note={char} key={key} cx={this.state.cx} cy={this.state.cy} />      
+    );
+    return(
+      <div className="noteline" ref={el => this.containerLine = el}>
+           {resLine}
+      </div>
+    );
+  }
+}
 
 class NoteBtn extends React.Component {
   constructor(props) {
@@ -47,7 +129,7 @@ class NoteBar extends React.Component {
   render() {
     const symbols = this.props.symbols;
     const noteBarRes = symbols.map((symbol, key) =>
-      <Tooltip position={Position.LEFT} content={symbol[1]}>
+      <Tooltip position={Position.LEFT} content={symbol[1]} key={key}>
         <NoteBtn pos={symbol[2]} symb={symbol[0]} />
       </Tooltip>
     );
@@ -98,10 +180,17 @@ function App() {
       </Navbar>
       <header className="App-header">
         <Card elevation={Elevation.TWO} className="printCard" >
-          <h5>Composition 1</h5>
-          <div className="noteline">
-            [`=======йц==у=к===енг===шщ==з(Ъ)хъ========================\/
-          </div>
+          <h3>Composition 1</h3>
+          <NoteLine />
+          <p> Line 1 </p>
+          <NoteLine />
+          <p> Line 2 </p>
+          <NoteLine />
+          <p> Line 3 </p>
+          <NoteLine />
+          <p> Line 4 </p>
+          <NoteLine />
+          <p> Line 5 </p>
         </Card>
         <ButtonGroup vertical={true} large={true} style={{ padding: 15 }}>
           <NoteBar symbols={notes} />

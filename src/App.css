@@ -57,6 +57,13 @@
 .printCard{
   width: 595px;
   height: 842px;
+  cursor: crosshair;
+}
+
+.printCard > p{
+  padding-left: 15px;
+  padding-bottom: 10px;
+  text-align: left;
 }
 
 /* print styles */
@@ -78,6 +85,9 @@
 
 .noteline{
   font-family: Toporik;
+  font-size: 30px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .note_btn{  
