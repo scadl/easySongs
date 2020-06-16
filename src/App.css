@@ -2,41 +2,11 @@
 @import "~@blueprintjs/core/lib/css/blueprint.css";
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 3vmin;
-  pointer-events: none;
-}
-
-.App-axe {
-  height: 3vmin;
-  pointer-events: none;
-  padding-right: 5px;
-  fill: aqua;
-}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 10s linear;
   }
-}
-
-.App-header {
-  background-color: #E1E8ED;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: #293742;
-}
-
-.App-link {
-  color: white;
 }
 
 @keyframes App-logo-spin {
@@ -46,24 +16,6 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-/* Custom styles */
-
-.bp3-button-group > .bp3-button > .bp3-button-text{
-  color: #5C7080;
-}
-
-.printCard{
-  width: 595px;
-  height: 842px;
-  cursor: crosshair;
-}
-
-.printCard > p{
-  padding-left: 15px;
-  padding-bottom: 10px;
-  text-align: left;
 }
 
 /* print styles */
@@ -83,11 +35,74 @@
   src: url('Toporiki_mod.ttf');
 }
 
-.noteline{
+@font-face{
+  font-family: Izhitsa;
+  src: url('izhitsa-cyrillic.ttf');
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 3vmin;
+  pointer-events: none;
+}
+
+.App-axe {
+  height: 5vmin;
+  pointer-events: none;
+  padding-right: 5px;
+  fill: #BFCCD6;
+  fill-opacity:1;
+}
+
+.App-header {
+  font-family: Izhitsa;
+  background-color: #E1E8ED;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start; 
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #293742;
+}
+
+.App-link {
+  color: white;
+}
+
+
+.printCard{
+  
+  /* https://www.papersizes.org/a-sizes-in-pixels.htm */
+  width: 794px;
+  height: 1123px;
+
+  cursor: crosshair;
+  font-size: 20px;
+  margin: 15px 5px;
+  padding: 45px;
+}
+
+.printCard > div{
+  padding: 7px 3px;
+  text-align: left;
+}
+
+.printCard > .noteline{
+  font-size: 35px;
   font-family: Toporik;
-  font-size: 30px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  
+  font-smoothing: never;
+  font-smooth: never;
+  -moz-osx-font-smoothing: unset;
+  -webkit-font-smoothing : none; 
+
+  filter: contrast(1) contrast(1) grayscale(1);
+  -webkit-transform: translateZ(0px);
+  -webkit-backface-visibility:hidden;
 }
 
 .note_btn{  
@@ -96,5 +111,6 @@
 
 .note_btn > .bp3-button-text{
   font-size: 30px;
-  /*color: #5C7080;*/
+  padding-top: 3px;
+  overflow: hidden;
 }
