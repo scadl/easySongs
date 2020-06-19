@@ -40,6 +40,11 @@
   src: url('izhitsa-cyrillic.ttf');
 }
 
+@font-face{
+  font-family: Irmologion;
+  src: url('IrmUcs.ttf');
+}
+
 .App {
   text-align: center;
 }
@@ -50,7 +55,7 @@
 }
 
 .App-axe {
-  height: 5vmin;
+  height: 3vmin;
   pointer-events: none;
   padding-right: 5px;
   fill: #BFCCD6;
@@ -83,17 +88,19 @@
   cursor: crosshair;
   font-size: 20px;
   margin: 15px 5px;
-  padding: 45px;
+  padding: 25px;
 }
 
 .printCard > div{
-  padding: 7px 3px;
+  padding: 4px 3px;
   text-align: left;
 }
 
 .printCard > .noteline{
   font-size: 35px;
   font-family: Toporik;
+  white-space: nowrap;
+  overflow: hidden;
   
   font-smoothing: never;
   font-smooth: never;
@@ -112,5 +119,10 @@
 .note_btn > .bp3-button-text{
   font-size: 30px;
   padding-top: 3px;
-  overflow: hidden;
+  overflow-x: visible;
+  overflow-y: hidden; 
+}
+
+.glas_nm{
+  font-family: Irmologion;
 }
