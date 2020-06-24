@@ -97,10 +97,13 @@
 }
 
 .printCard > .noteline{
+
   font-size: 35px;
   font-family: Toporik;
   white-space: nowrap;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
+  height: 65px;
   
   font-smoothing: never;
   font-smooth: never;

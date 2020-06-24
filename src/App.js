@@ -16,9 +16,14 @@ class NoteChar extends React.Component{
       cNote: props.note
     }
   }
-  noteUpdate(evt){  
+  noteUpdate(e){  
+
     document.getSelection().removeAllRanges();
-    let clickY = evt.clientY - this.props.cy;
+
+    let target = e.target || e.srcElement,
+    rect = target.getBoundingClientRect(),
+    clickY = Math.round(e.clientY - rect.top);
+
     let safeChars = "ё`".split("");
     let noteSources = [
       ["=","ф","й","1","!","Й","Ф","=","Z","=","=","[","\\","/"],
@@ -44,7 +49,7 @@ class NoteChar extends React.Component{
       [-</span>
     ];
     let stepInc = 4;
-    let stepPos = 50;
+    let stepPos = 60;
     let noteHights = [];
     noteSources.forEach((note)=>{      
       noteHights.push([ stepPos, stepPos-stepInc, note ]);
@@ -60,7 +65,7 @@ class NoteChar extends React.Component{
               return false;
             }
         });
-        console.log(nCh);
+        //console.log(nCh);
         if(nCh===undefined || this.props.CnID === -1){      
           return {cNote: "="};          
         } else {
@@ -73,7 +78,7 @@ class NoteChar extends React.Component{
       }
     });
     this.props.onNoteUpdate();
-    console.log(" cY:"+this.props.cy +  " eCy:" + evt.clientY + " rY:"+clickY);
+    console.log("NoteLinY:"+this.props.cy +  " DiferenceY:"+clickY);
   }
   render(){    
     return(
@@ -99,6 +104,7 @@ class NoteLine extends React.Component{
       cL: this.containerLine
     });  
     this.updateCoord();
+    window.addEventListener('scroll', this.updateCoord, true);
   }
   updateCoord(){
     if (this.state.cL!==null) {
@@ -115,6 +121,8 @@ class NoteLine extends React.Component{
       cx={this.state.cx} cy={this.state.cy} CnID={this.props.SnID} 
       glasN={this.props.glas} pristN={this.props.prist} />      
     );
+
+    
     //console.log(this.props)
     return(
       <div className="noteline" ref={el => this.containerLine = el}>
