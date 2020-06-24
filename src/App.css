@@ -67,8 +67,8 @@
   background-color: #E1E8ED;
   min-height: 100vh;
   display: flex;
-  flex-direction: row;
-  align-items: flex-start; 
+  flex-direction: column;
+  align-items: center; 
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: #293742;
@@ -103,7 +103,7 @@
   white-space: nowrap;
   overflow-x: hidden;
   overflow-y: visible;
-  height: 65px;
+  height: 67px;
   
   font-smoothing: never;
   font-smooth: never;

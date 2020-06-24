@@ -145,7 +145,7 @@ class NoteBtn extends React.Component {
 
   render() {
     return (
-      <Button className="note_btn"
+      <Button className="note_btn" large={true}
         onClick={this.switchState} intent={this.props.curInt}>
         <span style={{ top: this.props.pos, position: "relative" }}>
           {this.props.symb}
@@ -180,7 +180,7 @@ class NoteBar extends React.Component {
   render() {
     const symbols = this.props.symbols;
     const noteBarRes = symbols.map((symbol, key) =>
-      <Tooltip position={Position.LEFT} content={symbol[1]} key={key}>
+      <Tooltip position={Position.BOTTOM} content={symbol[1]} key={key}>
         <NoteBtn pos={symbol[2]} symb={symbol[0]} btnID={key} 
         onBtnSel={this.btnSel} onVisReset={this.visReset} 
         curInt={this.state.cItnt===key?Intent.PRIMARY:Intent.NONE} />
@@ -188,7 +188,7 @@ class NoteBar extends React.Component {
     );
 
     return (
-      <ButtonGroup vertical={true}>
+      <ButtonGroup>
         {noteBarRes}
       </ButtonGroup>
     );
@@ -286,7 +286,8 @@ class App extends React.Component {
       noteID: -1,
       noteLines: 1,
       glasNm: 1,
-      prist: "Пёснь"
+      pagesNm: 1,
+      prist: "Пёснь",      
     }
   }
   
@@ -344,32 +345,71 @@ class App extends React.Component {
       ["Τ", "Вставить приставку",  -13], 
     ];
 
+
     let lines = [];
-    for(let i=0; i<this.state.noteLines; i++){
-    lines.push(
-      <NoteLine key={"l"+i} SnID={this.state.noteID} 
-      glas={this.state.glasNm} prist={this.state.prist} />,
-      <NoteText key={"t"+i} txtID={i}/>
-    )
+    lines.push([]);
+    let pages = [ 
+      <Card elevation={Elevation.TWO} className="printCard" id="myPage" key={"c0"}>
+        <h3><NoteText key={"tH"} txtID={"Заголовок "}/></h3>
+        {lines[0]}
+      </Card>
+    ];
+
+    let ind = 0;    
+    for (let i = 0; i < this.state.noteLines; i++) {    
+
+      if( i % 9 === 0 && i>7){
+        ind++;
+        lines.push([]);
+        pages.push(
+          <Card elevation={Elevation.TWO} 
+          className="printCard" id="myPage" key={"c"+i}>
+            {lines[ind]}
+          </Card>
+        )
+      }
+
+      lines[ind].push(
+        <NoteLine key={"l" + i} SnID={this.state.noteID}
+          glas={this.state.glasNm} prist={this.state.prist} />,
+        <NoteText key={"t" + i} txtID={i} />
+      )
+      
     }
+    console.log(lines)
 
     return (
       <div className="App">
-        <Navbar className="bp3-dark" >
+        <Navbar className="bp3-dark" style={{position:"fixed"}}>
           <Navbar.Group align={Alignment.LEFT} >
             <svg viewBox="0 0 1000 1000" className="App-axe" alt="logo">
-              <path d="m 398,293 q 0,-25 14,-100 9,-46 9,-69 0,-12 -2,-23 Q 385,84 312,84 268,84 230.5,90 193,96 193,101 v 121 h 121 q 42,0 45,16 -19,73 -49,212 -20,91 -20,150 0,46 14,81 2,5 5,5 10,0 40,-20 34,-34 51,-34 2,0 3,1 -5,-16 -8,-34 h 247 q -12,156 -12,236 0,87 24,87 0,2 6,2 13,0 49,-10 36,-10 36,-12 V 181 H 533 q -16,17 -19,94 0,25 -1,50 -2,49 5.51562,52.1211 7.48438,2.87891 25.4844,2.87891 19,0 60,-3.5 41,-3.5 52,-3.5 13,0 13,3 0,36 -17,102 v 0 h -266 q 6,-92 12,-185 z m 6,343 q 0,-2 -1,-3 z" />
+              <path d="m 398,293 q 0,-25 14,-100 9,-46 9,-69 0,-12 -2,-23 Q 385,84 312,84 268,84 230.5,90 193,96 193,101 v 121 h 121 q 42,0 45,
+              16 -19,73 -49,212 -20,91 -20,150 0,46 14,81 2,5 5,5 10,0 40,-20 34,-34 51,-34 2,0 3,1 -5,-16 -8,-34 h 247 q -12,156 -12,236 0,87 24,
+              87 0,2 6,2 13,0 49,-10 36,-10 36,-12 V 181 H 533 q -16,17 -19,94 0,25 -1,50 -2,49 5.51562,52.1211 7.48438,2.87891 25.4844,2.87891 19,0 60,
+              -3.5 41,-3.5 52,-3.5 13,0 13,3 0,36 -17,102 v 0 h -266 q 6,-92 12,-185 z m 6,343 q 0,-2 -1,-3 z" />
+              <rect
+                id="rect3710"
+                width="970"
+                height="970"
+                x="10"
+                y="10"
+                style={{ fill: "#bfccd6", fillOpacity: 0.1, stroke: "#bfccd6", strokeOpacity: 0.5, strokeWidth: 50,  }}
+                ry="200" />
             </svg>
             <Navbar.Heading style={{ fontWeight: "bold" }} className="">
               простоТопорики
            </Navbar.Heading>
             <Navbar.Divider />
-            <Button className="bp3-minimal" icon="folder-open" text="Открыть" />
-            <Button className="bp3-minimal" icon="floppy-disk" text="Сохранить" />
-            <Button className="bp3-minimal" icon="print" text="Печать" onClick={this.printCall} />
+            <ButtonGroup>
+            <Button minimal={false} icon="folder-open" text="Открыть" />
+            <Button minimal={false} icon="floppy-disk" text="Сохранить" />
+            <Tooltip content={"Печать"}>
+              <Button icon="print" onClick={this.printCall} />
+            </Tooltip>
+            </ButtonGroup>
             <Navbar.Divider />
-            <Tooltip content={"Строк на странице"}>
-            <NumericInput leftIcon="sort" min={1} max={10} value={1} 
+            <Tooltip content={"Станов в документе"}>
+            <NumericInput leftIcon="sort" min={1} max={100} value={1} 
             style={{width:70}} onValueChange={this.onLineAdd} />
             </Tooltip>
             <Tooltip content={"Приставка"}>
@@ -382,14 +422,14 @@ class App extends React.Component {
             </Tooltip>
           </Navbar.Group>
         </Navbar>
-        <header className="App-header">
-          <Card elevation={Elevation.TWO} className="printCard" id="myPage">
-            <h3><NoteText key={"tH"} txtID={"H"}/></h3>
-            {lines}
-          </Card>
-          <ButtonGroup vertical={true} large={true} style={{ padding: 15 }}>
+        <Navbar className="bp3-dark" style={{paddingLeft: 1, top:45, position:"fixed"}}>
+          <Navbar.Group align={Alignment.CENTER} >
             <NoteBar symbols={notes} onActiveN={this.onActiveNote} />
-          </ButtonGroup>
+          </Navbar.Group>
+        </Navbar>
+        <header className="App-header" >
+          <div style={{height:100, display:"inline-block"}}></div>
+          {pages}          
         </header>
       </div>
     );
