@@ -1,12 +1,12 @@
 import React from 'react';
-//import ReactDOM from 'react';
 import './App.css';
 
 import {
   Button, Intent, ButtonGroup, Navbar,
   Alignment, Card, Elevation, Position, Tooltip, InputGroup, Label, NumericInput
-} from "@blueprintjs/core"
+} from "@blueprintjs/core";
 
+import ReactToPrint from "react-to-print";
 
 class NoteChar extends React.Component{
   constructor(props){
@@ -224,7 +224,7 @@ class TextElement extends React.Component{
         <Button icon={"tick"} minimal={true} onClick={this.sentData}/>
       } />;
     } else {
-      elem = <Label onClick={this.sentData} style={{cursor:"text"}}> 
+      elem = <Label onClick={this.sentData} style={{cursor:"text"}} className="note_txt"> 
       {this.state.theVal} 
       </Label>
     }
@@ -362,7 +362,7 @@ class App extends React.Component {
         ind++;
         lines.push([]);
         pages.push(
-          <Card elevation={Elevation.TWO} 
+          <Card elevation={Elevation.TWO}
           className="printCard" id="myPage" key={"c"+i}>
             {lines[ind]}
           </Card>
@@ -404,7 +404,10 @@ class App extends React.Component {
             <Button minimal={false} icon="folder-open" text="Открыть" />
             <Button minimal={false} icon="floppy-disk" text="Сохранить" />
             <Tooltip content={"Печать"}>
-              <Button icon="print" onClick={this.printCall} />
+              <ReactToPrint
+              trigger={()=><Button icon="print" />}
+              content={()=>this.componentRef}
+              />
             </Tooltip>
             </ButtonGroup>
             <Navbar.Divider />
@@ -429,7 +432,9 @@ class App extends React.Component {
         </Navbar>
         <header className="App-header" >
           <div style={{height:100, display:"inline-block"}}></div>
+          <span ref={el=>(this.componentRef=el)}>
           {pages}          
+          </span>
         </header>
       </div>
     );

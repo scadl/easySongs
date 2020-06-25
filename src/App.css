@@ -91,6 +91,13 @@
   padding: 25px;
 }
 
+@media print{
+  .printCard{
+    padding: 0px 20px;
+    box-shadow: none;
+  }
+}
+
 .printCard > div{
   padding: 4px 3px;
   text-align: left;
@@ -128,4 +135,8 @@
 
 .glas_nm{
   font-family: Irmologion;
+}
+ 
+.note_txt{
+  font-family: Izhitsa;
 }
