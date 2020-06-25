@@ -5,3 +5,4 @@
 Данное приложение целиком реализовано с применением новейшей веб-технолгии [React](https://reactjs.org/).
 Ноная партитура программы псотроеная на модифицированном варианте шрифта [Toporiki](http://znamen.ru/odnoglas.php).
 Графическая оболчка программы обеспечивается [Blueprint](https://blueprintjs.com/).
+Иеханизм печати построенн на расширении [ReactToPrint](https://www.npmjs.com/package/react-to-print).
