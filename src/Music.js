@@ -1,6 +1,7 @@
 import React from 'react';
 
 class NoteChar extends React.Component{
+
     constructor(props){
       super(props);    
       this.noteUpdate = this.noteUpdate.bind(this);
@@ -8,6 +9,7 @@ class NoteChar extends React.Component{
         cNote: props.note
       }
     }
+
     noteUpdate(e){  
   
       document.getSelection().removeAllRanges();
@@ -58,21 +60,24 @@ class NoteChar extends React.Component{
               }
           });
           //console.log(nCh);
-          if(nCh===undefined || this.props.CnID === -1){      
-            return {cNote: "="};          
-          } else {
+          let cNoteTmp = "=";
+          if(nCh!==undefined && this.props.CnID !== -1){                
             if(this.props.CnID > 9){
-              return {cNote: noteSourcesUniversal[this.props.CnID-10]}
+              cNoteTmp = noteSourcesUniversal[this.props.CnID-10]
             } else {
-              return {cNote: nCh[2][this.props.CnID]}
+              cNoteTmp = nCh[2][this.props.CnID]
             }
           }
+          this.props.onNoteChange(this.props.nmKey, cNoteTmp);
+          return {cNote: cNoteTmp};          
         }
       });
-      this.props.onNoteUpdate();
-      console.log("NoteLinY:"+this.props.cy +  " DiferenceY:"+clickY);
+      this.props.onNoteUpdate();      
+      //console.log("NoteLinY:"+this.props.cy +  " DiferenceY:"+clickY);
     }
+
     render(){    
+      
       return(
         <div onClick={this.noteUpdate} style={{display:"inline"}}>
         {this.state.cNote}
@@ -82,15 +87,18 @@ class NoteChar extends React.Component{
   }
   
   class NoteLine extends React.Component{
+
     constructor(props){
       super(props);
       this.updateCoord = this.updateCoord.bind(this);
+      this.noteChange = this.noteChange.bind(this);
       this.state = {
         cx: 0,
         cy: 0,
         cL: null
       }
     }
+
     componentDidMount(){
       this.setState({
         cL: this.containerLine
@@ -98,6 +106,7 @@ class NoteChar extends React.Component{
       this.updateCoord();
       window.addEventListener('scroll', this.updateCoord, true);
     }
+
     updateCoord(){
       if (this.state.cL!==null) {
         this.setState((state) => ({
@@ -106,12 +115,17 @@ class NoteChar extends React.Component{
         }));
       }
     }
+
+    noteChange(key, char){
+      this.props.onNoteData(this.props.nID, char, key);
+    }
+
     render(){
-      let myLine = "=`===============================================================";
+      let myLine = this.props.noteLine;
       let resLine = myLine.split("").map((char, key) => 
-        <NoteChar note={char} key={key} onNoteUpdate={this.updateCoord}
-        cx={this.state.cx} cy={this.state.cy} CnID={this.props.SnID} 
-        glasN={this.props.glas} pristN={this.props.prist} />      
+        <NoteChar note={char} key={"nc"+key} onNoteUpdate={this.updateCoord}
+        cx={this.state.cx} cy={this.state.cy} CnID={this.props.SnID} nmKey={key}
+        glasN={this.props.glas} pristN={this.props.prist} onNoteChange={this.noteChange} />      
       );
   
       

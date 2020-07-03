@@ -4,37 +4,62 @@ import {
   } from "@blueprintjs/core";
 
 class TextElement extends React.Component{
+  
     constructor(props){
       super(props)
       this.sentData = this.sentData.bind(this)
       this.writeData = this.writeData.bind(this)
       this.state = {
-        theVal: this.props.textValue
+        theVal: ''
       }
     }
+
+    componentDidMount(){
+      this.setState((state)=>({
+        theVal: this.props.textValue
+      }));
+      this.props.onDataStor(this.props.textValue);
+    }
+
     writeData(event){
       let myTExt = event.target.value;
-      //console.log(myTExt)
       this.setState((state)=>({
         theVal: myTExt===""?"§":myTExt
       }));
+      this.props.onDataStor(myTExt);
     }
+
     sentData(){        
       this.props.onSwithEditor()
     }
-    render(){
+
+    render(){      
+
+      // Ensures to update nonDynamic labels, like docHeader
+      let textData = this.state.theVal;
+      if(textData !== this.props.textValue){
+        textData = this.props.textValue;
+      }
+
       let elem = null;
+
       if(this.props.editMode){
+
         elem = <InputGroup type="text" large={true} 
-        value={this.state.theVal} onChange={this.writeData}
+        value={textData} onChange={this.writeData}
         rightElement={
           <Button icon={"tick"} minimal={true} onClick={this.sentData}/>
         } />;
+
       } else {
-        elem = <Label onClick={this.sentData} style={{cursor:"text"}} className="note_txt"> 
-        {this.state.theVal} 
+
+        elem = <Label onClick={this.sentData} style={{cursor:"text"}} 
+        className="note_txt"> 
+        {textData} 
         </Label>
+
       }
+
       return(<span>{elem}</span>);
     }
   }
@@ -43,10 +68,10 @@ class TextElement extends React.Component{
     constructor(props){
       super(props)
       this.switchEditor = this.switchEditor.bind(this);
+      this.dataStor = this.dataStor.bind(this);
       this.state = {
-        editMode: false,
-        textLine: "Линия " + (this.props.txtID + 1)
-      }
+        editMode: false,        
+      }      
     }  
   
     switchEditor(){
@@ -64,15 +89,19 @@ class TextElement extends React.Component{
         }
       });  
     }
+
+    dataStor(text) {
+      this.props.onTxtData(this.props.txtID, text);
+    }
   
-  
-    render(){
+    render(){      
       return(
         <div >
           <TextElement 
           editMode={this.state.editMode} 
           onSwithEditor={this.switchEditor}
-          textValue={this.state.textLine}
+          textValue={this.props.textLine}
+          onDataStor={this.dataStor}
            />
         </div>
       )

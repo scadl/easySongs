@@ -32,17 +32,17 @@
 /* custom font */
 @font-face{
   font-family: Toporik;
-  src: url('Toporiki_mod.ttf');
+  src: url('res/Toporiki_mod.ttf');
 }
 
 @font-face{
   font-family: Izhitsa;
-  src: url('izhitsa-cyrillic.ttf');
+  src: url('res/izhitsa-cyrillic.ttf');
 }
 
 @font-face{
   font-family: Irmologion;
-  src: url('IrmUcs.ttf');
+  src: url('res/IrmUcs.ttf');
 }
 
 .App {
