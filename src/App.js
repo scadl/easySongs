@@ -103,7 +103,7 @@ class App extends React.Component {
       //console.log(mS);
       this.setState((state) => ({
         mySong: mS,
-        isOpen: alState
+        isAskPrsisOpen: alState
       }));
     }
     
