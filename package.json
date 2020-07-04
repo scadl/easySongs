@@ -14,11 +14,16 @@
     "react-to-print": "^2.9.0",
     "uuid": "^8.2.0"
   },
+  "main": "src/electron-s.js",
+  "homepage": "./",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron-win": "electron .",
+    "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
+    "dev" : "nf start"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,5 +39,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron": "^9.0.5",
+    "foreman": "^3.0.1"
   }
 }

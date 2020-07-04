@@ -118,8 +118,8 @@
   -webkit-font-smoothing : none; 
 
   filter: contrast(1) contrast(1) grayscale(1);
-  -webkit-transform: translateZ(0px);
-  -webkit-backface-visibility:hidden;
+  -transform: translateZ(0px);
+  -visibility:hidden;
 }
 
 .note_btn{  
