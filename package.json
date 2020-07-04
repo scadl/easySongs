@@ -21,9 +21,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "electron-win": "electron .",
-    "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
-    "dev" : "nf start"
+    "electron": "electron .",
+    "ele-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
+    "pm-dev" : "nf start"
   },
   "eslintConfig": {
     "extends": "react-app"

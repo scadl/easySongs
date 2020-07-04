@@ -3,7 +3,7 @@ import ReactToPrint from "react-to-print";
 import './App.css';
 import {
   Button, ButtonGroup, Navbar,
-  Card, Elevation,
+  Card, Elevation, Alert, Intent,
   Tooltip, InputGroup, NumericInput
 } from "@blueprintjs/core";
 import { v4 as uuidv4 } from 'uuid';
@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import NoteLine from "./Music";
 import NoteBar from "./Toolbar";
 import NoteText from "./Text";
+import { TEXT_LARGE } from '@blueprintjs/core/lib/esm/common/classes';
 
 
 class App extends React.Component {
@@ -24,6 +25,9 @@ class App extends React.Component {
     this.saveDoc = this.saveDoc.bind(this);
     this.loadDoc = this.loadDoc.bind(this);
     this.onDataGot = this.onDataGot.bind(this);
+    this.toggleOverlay = this.toggleOverlay.bind(this);
+    this.saveAsk = this.saveAsk.bind(this);
+    this.loadAsk = this.loadAsk.bind(this);
     this.docData = [];
     this.emptyLine = {
       'notes': '=`===============================================================',
@@ -37,6 +41,9 @@ class App extends React.Component {
       prist: "Пёснь",
       docHeader: 'Заголовок документа',
       mySong: [Object.assign({}, this.emptyLine)],
+      isAskPrsisOpen : false,
+      isAskSaveOpen: false,
+      isAskLoadOpen: false,
     }
     // Object.assign(target, ...sources) - Copy object with props
   }
@@ -76,20 +83,27 @@ class App extends React.Component {
         docHeader: text
       }));
     } else {
+      let alState = false;
       let mS = this.state.mySong;
       if (mS[id] === undefined) {
         mS[id] = Object.assign({}, this.emptyLine)
       }
       if (subIndex !== -1) {
+        let insText = text
+        if(typeof(text)=="object"){
+          insText = '[-';
+          alState = true;
+        }
         let nS = mS[id].notes;
-        mS[id].notes = nS.substr(0, subIndex) + text + nS.substr(subIndex + 1);
+        mS[id].notes = nS.substr(0, subIndex) + insText + nS.substr(subIndex + 1);
       } else {
         // if subIndex = -1, it's a text
         mS[id].texts = text;
       }
       //console.log(mS);
       this.setState((state) => ({
-        mySong: mS
+        mySong: mS,
+        isOpen: alState
       }));
     }
     
@@ -129,6 +143,30 @@ class App extends React.Component {
     console.warn("Document loaded "+lines+"l :")
     console.log(fileData);
     console.groupEnd("Loading Process");
+  }
+
+  toggleOverlay(){
+    this.setState({
+      isAskPrsisOpen:false
+    })
+  }
+
+  saveAsk(confirm){
+    if(confirm){
+      this.saveDoc();
+    }
+    this.setState({
+      isAskSaveOpen:false
+    })
+  }
+
+  loadAsk(confirm){
+    if(confirm){
+      this.loadDoc();
+    }
+    this.setState({
+      isAskLoadOpen:false
+    })
   }
 
   render() {
@@ -201,30 +239,18 @@ class App extends React.Component {
       <div className="App">
         <Navbar className="bp3-dark" style={{ position: "fixed" }}>
           <Navbar.Group >
-            <svg viewBox="0 0 1000 1000" className="App-axe" alt="logo">
-              <path d="m 398,293 q 0,-25 14,-100 9,-46 9,-69 0,-12 -2,-23 Q 385,84 312,84 268,84 230.5,90 193,96 193,101 v 121 h 121 q 42,0 45,
-              16 -19,73 -49,212 -20,91 -20,150 0,46 14,81 2,5 5,5 10,0 40,-20 34,-34 51,-34 2,0 3,1 -5,-16 -8,-34 h 247 q -12,156 -12,236 0,87 24,
-              87 0,2 6,2 13,0 49,-10 36,-10 36,-12 V 181 H 533 q -16,17 -19,94 0,25 -1,50 -2,49 5.51562,52.1211 7.48438,2.87891 25.4844,2.87891 19,0 60,
-              -3.5 41,-3.5 52,-3.5 13,0 13,3 0,36 -17,102 v 0 h -266 q 6,-92 12,-185 z m 6,343 q 0,-2 -1,-3 z" />
-              <rect
-                id="rect3710"
-                width="970"
-                height="970"
-                x="10"
-                y="10"
-                style={{ fill: "#bfccd6", fillOpacity: 0.1, stroke: "#bfccd6", strokeOpacity: 0.5, strokeWidth: 50, }}
-                ry="200" />
-            </svg>
-            <Navbar.Heading style={{ fontWeight: "bold" }} className="">
-              простоТопорики
-           </Navbar.Heading>
-            <Navbar.Divider />
             <ButtonGroup>
-              <Button minimal={false} icon="folder-open" text="Открыть" onClick={this.loadDoc} />
-              <Button minimal={false} icon="floppy-disk" text="Сохранить" onClick={this.saveDoc} />
-              <Tooltip content={"Печать"}>
+            <Tooltip content={"Загрузить преидущую сессию"}>
+              <Button minimal={false} icon="unarchive" text="Загрузить" 
+              onClick={()=>{this.setState({isAskLoadOpen:true})}} />
+            </Tooltip>
+            <Tooltip content={"Записать текущий документ"}>
+              <Button minimal={false} icon="archive" text="Сохранить" 
+              onClick={()=>{this.setState({isAskSaveOpen:true})}} />
+            </Tooltip>
+              <Tooltip content={"Печать всех страниц"}>
                 <ReactToPrint
-                  trigger={() => <Button icon="print" />}
+                  trigger={() => <Button icon="print" text="Печать" />}
                   content={() => this.componentRef}
                 />
               </Tooltip>
@@ -249,12 +275,36 @@ class App extends React.Component {
             <NoteBar symbols={notes} onActiveN={this.onActiveNote} />
           </Navbar.Group>
         </Navbar>
+
         <header className="App-header" >
           <div style={{ height: 100, display: "inline-block" }}></div>
           <span ref={el => (this.componentRef = el)}>
             {pages}
           </span>
         </header>
+
+        <Alert isOpen={this.state.isAskPrsisOpen} onClose={this.toggleOverlay} className={TEXT_LARGE}
+        icon="info-sign" intent={Intent.PRIMARY} canEscapeKeyCancel={true}>
+          <strong>Обратите Внимание!</strong><hr/>
+          Сохранение "приставок" пока не реализовано...
+          Пожалуйста распечатайте документ, или замените "приставку" на любой символ.
+          Если вы продолжите, ваша "приставка" будет автоматически заменена на "начало строки" при сохранении.
+        </Alert>
+
+        <Alert isOpen={this.state.isAskSaveOpen} onClose={this.saveAsk} className={TEXT_LARGE}
+        icon="floppy-disk" intent={Intent.WARNING} cancelButtonText="Нет" confirmButtonText="Да">
+          <strong>Перезаписать?</strong><hr/>
+          В данный момент можно хранить только один файл...
+          Сохранить текущий документ, удалив предыдущую запись (если есть)?
+        </Alert>
+
+        <Alert isOpen={this.state.isAskLoadOpen} onClose={this.loadAsk} className={TEXT_LARGE}
+        icon="upload" intent={Intent.SUCCESS} cancelButtonText="Нет" confirmButtonText="Да">
+          <strong>Загрузить?</strong><hr/>
+          В данный момент можно хранить только один файл...
+          Загрузить предыдущий документ заменив текущий (если есть)?
+        </Alert>
+
       </div>
     );
   }
