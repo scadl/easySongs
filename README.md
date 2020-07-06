@@ -1,6 +1,6 @@
 # Просто Топорики
 
-Это уникальный и очень простой в использовании нотный редактор, предназначенный для набора знаменных нот в цефаунтном (альтовом) ключе.
+Это уникальный и очень простой в использовании нотный редактор, предназначенный для набора знаменных нот в цефаунтном (альтовом) ключе, так называемых "топориков", для церковных песнопений знаменного распева.
 
 ## Технологии
 
@@ -10,3 +10,11 @@
 Механизм печати построен на расширении [ReactToPrint](https://www.npmjs.com/package/react-to-print).
 Автономная оболочка программы [Electron](https://www.electronjs.org)
 Сборка веб-приложения - [electronPackager](https://github.com/electron/electron-packager)
+
+### Интерфейс программы
+
+![ui_example](https://monosnap.com/image/RjsTisdxLNKcw0WbYJ2jqIOCrAruRA)
+
+### Пример распечатки
+
+![print_example](https://monosnap.com/image/rXmTVU90vX5KGO1BNEIEnxZqSfb2Oo)
