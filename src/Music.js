@@ -49,17 +49,21 @@ class NoteChar extends React.Component{
         noteHights.push([ stepPos, stepPos-stepInc, note ]);
         stepPos -= (stepInc+1);
       });
-      //console.log(noteHights)
+
+      //console.log(noteHights);
+
       this.setState(function(state){
         if( safeChars.indexOf(this.state.cNote) === -1){        
           let nCh = noteHights.find(function(element) {
               if (clickY <= element[0] && clickY >= element[1]){
                   return true;
               } else {
-                return false;
+                //return false;
               }
           });
+
           //console.log(nCh);
+
           let cNoteTmp = "=";
           if(nCh!==undefined && this.props.CnID !== -1){                
             if(this.props.CnID > 9){
@@ -72,7 +76,8 @@ class NoteChar extends React.Component{
           return {cNote: cNoteTmp};          
         }
       });
-      this.props.onNoteUpdate();      
+      this.props.onNoteUpdate();
+      
       //console.log("NoteLinY:"+this.props.cy +  " DiferenceY:"+clickY);
     }
 

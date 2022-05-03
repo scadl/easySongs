@@ -22,7 +22,7 @@ function createWindow() {
         titleBarStyle: "hidden",
         autoHideMenuBar: true,
         frame: true,
-        icon: 'logo32.png'
+        icon: path.join(__dirname, '/../logo32.png')
     });
 
     // and load the index.html of the app.

@@ -140,3 +140,7 @@
 .note_txt{
   font-family: Izhitsa;
 }
+
+.noteline{
+  overflow: visible !important;
+}
