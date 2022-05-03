@@ -13,8 +13,8 @@
 
 ### Интерфейс программы
 
-![ui_example](https://monosnap.com/image/RjsTisdxLNKcw0WbYJ2jqIOCrAruRA)
+![ui_example](https://github.com/scadl/easySongs/blob/master/screenshots/ui_example.png)
 
 ### Пример распечатки
 
-![print_example](https://monosnap.com/image/rXmTVU90vX5KGO1BNEIEnxZqSfb2Oo)
+![print_example](https://github.com/scadl/easySongs/blob/master/screenshots/ui_print.png)
